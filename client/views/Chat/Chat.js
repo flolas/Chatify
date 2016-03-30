@@ -1,14 +1,15 @@
 Meteor.subscribe('Chats');
-Session.set('slider', parseInt(moment(new Date("01-09-2011 00:00")).format('X')));
-function renderSlider() {
+
+function renderSlider(min, max, start, step) {
+    Session.set('slider', min);
     slider = this.$("#slider").noUiSlider({
       range: {
-        'min': Session.get('sliderMin'),
-        'max': Session.get('sliderMax')
+        'min': min,
+        'max': max
       },
       animate: true,
-      start: Session.get('slider'),
-      step: 3600,
+      start: start,
+      step: step,
       format: wNumb({
          decimals: 3
        })
@@ -17,7 +18,9 @@ function renderSlider() {
   });
 }
 Tracker.autorun(function () {
-Template.Chat.onRendered(renderSlider);
+  if(Session.get('sliderMin') != undefined || Session.get('sliderMax') != undefined) {
+    Template.Chat.onRendered(renderSlider(Session.get('sliderMin'), Session.get('sliderMax'), Session.get('sliderMin'), 3600));
+  }
 });
 
 Template['Chat'].helpers({
@@ -31,8 +34,12 @@ Template['Chat'].helpers({
       id = Router.current().params._id;
       Bubbles = new Mongo.Collection(null);
       chats = Chats.findOne({ _id : id })
-      Session.set('sliderMin', parseInt(moment(_.first(_.pluck(chats.bubbles, 'sentAt'))).format('X')));
-      Session.set('sliderMax', parseInt(moment(_.last(_.pluck(chats.bubbles, 'sentAt'))).format('X')));
+      console.log("Burbujas");
+      /* TODO: Order by sentAt */
+      if(Session.get('sliderMin') == undefined || Session.get('sliderMax') == undefined) {
+        Session.set('sliderMin', parseInt(moment(_.first(_.pluck(chats.bubbles, 'sentAt'))).format('X')));
+        Session.set('sliderMax', parseInt(moment(_.last(_.pluck(chats.bubbles, 'sentAt'))).format('X')));
+      }
       for (var i = 0; i < chats.bubbles.length; i++) {
         Bubbles.insert(chats.bubbles[i]);
       }
