@@ -1,0 +1,11 @@
+<template name="Bubble">
+<div class="message-wrapper">
+  <div class="message message-{{from}}">
+    <div class="message-text text">{{ message }}</div>
+    <div class="message-meta">
+      <span class="message-timestamp {{#if isOther from}}only-timestamp{{/if}}">{{HHMM sentAt}}</span>
+      <span class="message-check {{#if isSeen seenAt}}message-seen{{/if}} {{#if isOther from}}hidden-check{{/if}}"><i style="font-size: 15px" class="material-icons">{{#if isReceived receivedAt}}done_all{{else}}check{{/if}}</i></span>
+    </div>
+  </div>
+</div>
+</template>

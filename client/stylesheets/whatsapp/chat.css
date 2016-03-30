@@ -1,0 +1,122 @@
+.header-picture {
+  max-width: 33px;
+  max-height: 33px;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+
+.chat {
+  background-image: url(/chat-background.jpg);
+  background-color: #E0DAD6;
+  background-size: 100%;
+  width:375px;
+}
+
+.message-list {
+  margin-top: 12px;
+  padding: 0 5%;
+}
+
+.message-wrapper {
+  margin-bottom: 9px;
+}
+.message-wrapper::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.message {
+  display: inline-block;
+  position: relative;
+  max-width: 236px;
+  border-radius: 7px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+}
+.message.message-me {
+  float: right;
+  background-color: #DCF8C6;
+}
+.message.message-other {
+  float: left;
+  background-color: #FFF;
+}
+.message.message-other::before, .message.message-me::before {
+  content: "";
+  position: absolute;
+  bottom: 3px;
+  width: 12px;
+  height: 19px;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+.message.message-other::before {
+  left: -11px;
+  background-image: url(/message-other.png);
+}
+.message.message-me::before {
+  right: -11px;
+  background-image: url(/message-me.png);
+}
+.message .text {
+  padding: 5px 7px;
+  word-wrap: break-word;
+  font-family: -apple-system, Helvetica, Arial;
+}
+.message .text::after {
+  content: " \00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0";
+  display: inline;
+}
+.message .picture {
+  padding: 4px 4px 0;
+}
+.message .picture img {
+  width: 220px;
+  height: 130px;
+  border-radius: 6px;
+}
+
+.footer-chat .item-input-wrapper {
+  background-color: #FFF;
+}
+.footer-chat .button.button-icon {
+  margin: 0 10px;
+}
+.footer-chat .buttons-seperator {
+  color: gray;
+  font-size: 18px;
+  line-height: 32px;
+}
+.message-meta{
+  position: absolute;
+  bottom: -2px;
+  right: 0;
+  font-size: 11px;
+  color: rgba(0, 0, 0, .45);
+  line-height: 15px;
+  height: 15px
+}
+.message-timestamp {
+  position: absolute;
+  font-family: 'Roboto';
+  bottom: 2px;
+  right: 25px;
+}
+
+.message-check {
+  position: absolute;
+  bottom: -1px;
+  right: 7px;
+}
+.message-meta .message-seen {
+  color: #56C3F5;
+}
+.hidden-check {
+  display:none;
+}
+.only-timestamp {
+  bottom: 2px;
+  right: 9px;
+}

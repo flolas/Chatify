@@ -1,0 +1,17 @@
+<template name="Chat">
+ <div id="controls">
+   <i style="font-size: 100px" class="material-icons play">play_arrow</i>
+   <i style="font-size: 100px" class="material-icons">stop</i>
+   <div id="slider"></div>
+   <p>Fecha: {{formatDate slider}}</p>
+ </div>
+  <p>Created by Username since {{livestamp createdAt}}</p>
+  <div id="range"></div>
+  <div class="chat">
+    <div class="message-list">
+      {{#each Bubbles}}
+        {{>Bubble}}
+       {{/each}}
+    </div>
+ </div>
+</template>
