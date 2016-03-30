@@ -32,16 +32,18 @@ Template['Chat'].helpers({
     },
     Bubbles : function() {
       id = Router.current().params._id;
-      Bubbles = new Mongo.Collection(null);
-      chats = Chats.findOne({ _id : id })
-      console.log("Burbujas");
-      /* TODO: Order by sentAt */
-      if(Session.get('sliderMin') == undefined || Session.get('sliderMax') == undefined) {
-        Session.set('sliderMin', parseInt(moment(_.first(_.pluck(chats.bubbles, 'sentAt'))).format('X')));
-        Session.set('sliderMax', parseInt(moment(_.last(_.pluck(chats.bubbles, 'sentAt'))).format('X')));
-      }
-      for (var i = 0; i < chats.bubbles.length; i++) {
-        Bubbles.insert(chats.bubbles[i]);
+      if (typeof(Bubbles) === "undefined"){
+        Bubbles = new Mongo.Collection(null);
+        chats = Chats.findOne({ _id : id })
+        console.log("Burbujas");
+        /* TODO: Order by sentAt */
+        if(Session.get('sliderMin') == undefined || Session.get('sliderMax') == undefined) {
+          Session.set('sliderMin', parseInt(moment(_.first(_.pluck(chats.bubbles, 'sentAt'))).format('X')));
+          Session.set('sliderMax', parseInt(moment(_.last(_.pluck(chats.bubbles, 'sentAt'))).format('X')));
+        }
+        for (var i = 0; i < chats.bubbles.length; i++) {
+          Bubbles.insert(chats.bubbles[i]);
+        }
       }
       return Bubbles.find({
                             sentAt : {
