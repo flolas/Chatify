@@ -10,9 +10,9 @@ Template['Bubble'].helpers({
               return from === "other";
             },
   'isSeen' : function (seenAt) {
-              return Session.get('slider') >= Date.parse(seenAt)/1000;
+              return new Date(Session.get('slider')) >= seenAt;
             },
   'isReceived' : function (receivedAt) {
-              return Session.get('slider') >= Date.parse(receivedAt)/1000;
+              return new Date(Session.get('slider')) >= receivedAt;
             }
 });
