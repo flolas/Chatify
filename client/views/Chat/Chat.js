@@ -73,29 +73,35 @@ Template['Chat'].events({
     stepper = 0;
     start = slider.val().toUnix();
     timer = setInterval(function(){
-              setSliderValue(parseInt(start + stepper));
-              if(val <= parseInt(slider.val().toUnix())) {
+              Session.set('timerId', timer);
+              if(Session.get('sliderMax') == Math.round(slider.val().toUnix())) {
+                console.log("Played");
                 clearInterval(timer);
                 return true;
               }
+              setSliderValue(start + stepper);
               stepper+=step;
           }, 1000);
   },
+  'click .pause' : function(e) {
+    e.preventDefault();
+    clearInterval(Session.get('timerId'));
+    console.log("Pause");
+  },
   'click .stop' : function(e) {
     e.preventDefault();
+    clearInterval(Session.get('timerId'));
+    setSliderValue(Session.get('sliderMin'));
     console.log("Stopped");
   }
   });
 
 function setSliderValue(val){
-  console.log(val);
-  val = (val).toStringDate();
-  console.log(val);
   slider.val(val);
-  Session.set(val);
+  Session.set('slider', (val).toStringDate());
   return true;
 }
 
-Date.prototype.toUnix = function() { return parseInt(moment(this).format('X')); };
-String.prototype.toUnix = function() { return parseInt(moment(this).format('X')); };
+Date.prototype.toUnix = function() { return parseInt(moment(this, 'MM/DD/YYYY hh:mm a').format('X')); };
+String.prototype.toUnix = function() { return parseInt(moment(this, 'MM/DD/YYYY hh:mm a').format('X')); };
 Number.prototype.toStringDate = function() { return moment.unix(Math.round(this)).format('MM/DD/YYYY hh:mm a'); };
